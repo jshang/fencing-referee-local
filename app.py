@@ -37,6 +37,8 @@ def download_file(file_name, bucket):
     s3 = boto3.resource('s3')
     output = f"./{file_name}"
     s3.Bucket(bucket).download_file(file_name, output)
+    del s3
+    print("del s3")
     #getKeypointsFromPredictor(output)
     return output
 
@@ -48,7 +50,7 @@ def getKeypointsFromPredictor(weights_path, im):
 
     image_path = data_root+"fencing.jpg"
 
-    model = config_file_path
+    #model = config_file_path
     #im = cv2.imread(image_path)
     cfg = get_cfg()
     cfg.merge_from_file(config_file_path)
@@ -60,6 +62,7 @@ def getKeypointsFromPredictor(weights_path, im):
     print("del unused objects")
     del weights_path
     del cfg
+    del config_file_path
     print("start predictor")
     outputs = predictor(im)
     print("end predictor")
