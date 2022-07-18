@@ -7,6 +7,7 @@ from PIL import Image
 import base64
 from io import BytesIO
 from utils import *
+import gc  
 
 import detectron2
 from detectron2.utils.logger import setup_logger
@@ -63,6 +64,9 @@ def getKeypointsFromPredictor(weights_path, im):
     del weights_path
     del cfg
     del config_file_path
+
+    n = gc.collect()  
+    print("Number of object deleted:", n)  
     print("start predictor")
     outputs = predictor(im)
     print("end predictor")
