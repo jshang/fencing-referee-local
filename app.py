@@ -56,6 +56,10 @@ def getKeypointsFromPredictor(weights_path, im):
     cfg.MODEL.WEIGHTS = weights_path
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.90
     predictor = DefaultPredictor(cfg)
+	
+    print("del unused objects")
+    del weights_path
+    del cfg
     print("start predictor")
     outputs = predictor(im)
     print("end predictor")
