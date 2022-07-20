@@ -68,7 +68,7 @@ def getKeypointsFromPredictor(weights_path, im):
     n = gc.collect()  
     print("Number of object deleted:", n)  
     print("start predictor")
-    outputs = predictor(im)
+    #outputs = predictor(im)
     print("end predictor")
     keypoints = "keypoints" #outputs["instances"].pred_keypoints
     print("keypoints: ", keypoints)
