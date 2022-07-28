@@ -44,3 +44,18 @@ def createImagesFromVideos(video_list):
         #cv2.destroyAllWindows()
 
     return image_list
+
+def myfunction(myvalue=None):
+    
+    return "from myfunction"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

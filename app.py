@@ -9,13 +9,6 @@ from io import BytesIO
 from utils import *
 import gc  
 
-import detectron2
-from detectron2.utils.logger import setup_logger
-setup_logger()
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog
 
 app = Flask(__name__)
 
@@ -51,25 +44,6 @@ def getKeypointsFromPredictor(weights_path, im):
 
     image_path = data_root+"fencing.jpg"
 
-    #model = config_file_path
-    #im = cv2.imread(image_path)
-    cfg = get_cfg()
-    cfg.merge_from_file(config_file_path)
-    cfg.MODEL.DEVICE='cpu'
-    cfg.MODEL.WEIGHTS = weights_path
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.90
-    predictor = DefaultPredictor(cfg)
-	
-    print("del unused objects")
-    del weights_path
-    del cfg
-    del config_file_path
-
-    n = gc.collect()  
-    print("Number of object deleted:", n)  
-    print("start predictor")
-    #outputs = predictor(im)
-    print("end predictor")
     keypoints = "keypoints" #outputs["instances"].pred_keypoints
     print("keypoints: ", keypoints)
     return keypoints
@@ -206,6 +180,11 @@ def result():
         else:
             prediction ='Income less that 50K'           
         return render_template("result.html", prediction = prediction)
+      
+@app.route('/test')
+def test():
+    info = myfunction()        
+    return info
 
 if __name__ == "__main__":
     app.run(debug=True)
